@@ -26,14 +26,12 @@ export default function Home() {
     tr: {
       title: 'Furkan Birol',
       subtitle: 'Ürün Sahibi • Agile Lider • Test Otomasyon Uzmanı',
-      askTitle: 'AI Asistanıma Sor',
-      askSubtitle: 'AI asistanım sayesinde CV’m, deneyimlerim ve projelerim hakkında her şeyi öğrenebilirsin.',
-      quickQuestions: 'Denemek ister misin?',
-      email: 'furkanbirol@icloud.com',
-      phone: '+90 551 419 81 34',
+      askTitle: 'Sor Furkan\'a',
+      askSubtitle: 'AI destekli kişisel asistanım, CV’m, kariyerim ve projelerim hakkında her şeyi cevaplıyor.',
+      quickQuestions: 'Hemen sor bakalım:',
+      email: 'Email',
       linkedin: 'LinkedIn',
       github: 'GitHub',
-      whatsapp: 'WhatsApp',
       contact: 'İletişim',
       achievements: 'Başarılar',
       sprintEfficiency: 'Sprint verimliliği: %20 artış',
@@ -47,18 +45,17 @@ export default function Home() {
       noAnswer: 'AI asistanım, CV\'m, deneyimlerim ve projelerim hakkında sorularınıza cevap verebilir. Yukarıdan bir soru seçin veya kendiniz yazın.',
       send: 'Gönder',
       thinking: 'Düşünüyor...',
+      source: 'Kaynak: CV, LinkedIn, Projeler',
     },
     en: {
       title: 'Furkan Birol',
       subtitle: 'Product Owner • Agile Lead • QA Automation Expert',
-      askTitle: 'Ask my AI Assistant',
-      askSubtitle: 'Learn everything about my resume, experience, and projects through my AI assistant.',
-      quickQuestions: 'Want to try?',
-      email: 'furkanbirol@icloud.com',
-      phone: '+90 551 419 81 34',
+      askTitle: 'Ask Furkan',
+      askSubtitle: 'My AI assistant answers your questions about my resume, career, and projects.',
+      quickQuestions: 'Try asking:',
+      email: 'Email',
       linkedin: 'LinkedIn',
       github: 'GitHub',
-      whatsapp: 'WhatsApp',
       contact: 'Contact',
       achievements: 'Achievements',
       sprintEfficiency: 'Sprint efficiency: 20% increase',
@@ -72,6 +69,7 @@ export default function Home() {
       noAnswer: 'My AI assistant can answer your questions about my resume, experience, and projects. Pick a question above or type your own.',
       send: 'Send',
       thinking: 'Thinking...',
+      source: 'Source: Resume, LinkedIn, Projects',
     }
   }[language];
 
@@ -80,7 +78,6 @@ export default function Home() {
     setLoading(true);
     setAnswer('');
 
-    // Dil bilgisini prompt'a ekle
     const langPrompt = language === 'tr' 
       ? 'Lütfen Türkçe cevap ver.' 
       : 'Please answer in English.';
@@ -88,9 +85,7 @@ export default function Home() {
     const res = await fetch('/api/ask', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        question: `${question} (${langPrompt})` 
-      }),
+      body: JSON.stringify({ question: `${question} (${langPrompt})` }),
     });
 
     const data = await res.json();
@@ -101,8 +96,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <aside className="w-106 bg-white shadow-sm border-r border-gray-200 h-screen fixed left-0 top-0 overflow-y-auto">
+      <aside className="w-96 bg-white shadow-sm border-r border-gray-200 h-screen fixed left-0 top-0 overflow-y-auto">
         <div className="p-6">
+
           {/* Logo / Avatar */}
           <div className="flex items-center mb-8">
             <img src="/furkan.png" alt="Furkan Birol" className="w-12 h-12 rounded-full mr-3" />
@@ -110,20 +106,24 @@ export default function Home() {
           </div>
 
           {/* Name & Title */}
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">{t.title}</h1>
-          <p className="text-gray-600 text-base mb-6">{t.subtitle}</p>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2 opacity-0 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+            {t.title}
+          </h1>
+          <p className="text-gray-600 text-base mb-6 opacity-0 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            {t.subtitle}
+          </p>
 
           {/* Profile Image */}
-          {/* <div className="mb-8">
+          {/* <div className="mb-8 opacity-0 animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <img
               src="/furkan.png"
               alt="Furkan Birol"
-              className="w-32 h-32 rounded-full mx-auto border-4 border-blue-200 shadow-lg"
+              className="w-32 h-32 rounded-full mx-auto border-4 border-blue-200 shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
             />
           </div> */}
 
           {/* Short Bio */}
-          <p className="text-gray-600 text-base leading-relaxed mb-8">
+          <p className="text-gray-600 text-base leading-relaxed mb-8 opacity-0 animate-fade-in" style={{ animationDelay: '0.4s' }}>
             {language === 'tr'
               ? '11+ yıllık deneyimle, Agile ekipleri yönetiyorum, ürün stratejileri geliştiriyorum ve kalite güvencesini CI/CD ile entegre ediyorum.'
               : 'With 11+ years of experience, I lead Agile teams, design product strategies, and integrate quality assurance into CI/CD pipelines.'
@@ -131,7 +131,7 @@ export default function Home() {
           </p>
 
           {/* Core Competencies */}
-          <div className="mb-8">
+          <div className="mb-8 opacity-0 animate-fade-in" style={{ animationDelay: '0.5s' }}>
             <h3 className="text-base font-semibold text-gray-800 uppercase tracking-wider mb-3">{t.competencies}</h3>
             <ul className="space-y-1 text-sm text-gray-600">
               <li>• Agile Product Ownership</li>
@@ -146,7 +146,7 @@ export default function Home() {
           </div>
 
           {/* Key Achievements */}
-          <div className="mb-8">
+          <div className="mb-8 opacity-0 animate-fade-in" style={{ animationDelay: '0.6s' }}>
             <h3 className="text-base font-semibold text-gray-800 uppercase tracking-wider mb-3">{t.achievements}</h3>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>✅ {t.sprintEfficiency}</li>
@@ -158,7 +158,7 @@ export default function Home() {
           </div>
 
           {/* Certifications */}
-          <div className="mb-8">
+          <div className="mb-8 opacity-0 animate-fade-in" style={{ animationDelay: '0.7s' }}>
             <h3 className="text-base font-semibold text-gray-800 uppercase tracking-wider mb-3">{t.certifications}</h3>
             <ul className="space-y-1 text-sm text-gray-600">
               <li>• ISTQB Certified Tester</li>
@@ -169,7 +169,7 @@ export default function Home() {
           </div>
 
           {/* Technical Skills */}
-          <div className="mb-8">
+          <div className="mb-8 opacity-0 animate-fade-in" style={{ animationDelay: '0.8s' }}>
             <h3 className="text-base font-semibold text-gray-800 uppercase tracking-wider mb-3">{t.skills}</h3>
             <div className="flex flex-wrap gap-1">
               {["Python", "Java", "C#", "Selenium", "Playwright", "JIRA", "Azure DevOps", "Jenkins", "Docker", "Git"].map((tech) => (
@@ -180,8 +180,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Social Links - Tümü Tek Satırda */}
-          <div className="flex space-x-6 mt-6 text-sm">
+          {/* Social Links - Email, LinkedIn, GitHub (Tek Satır) */}
+          <div className="flex space-x-6 mt-6 opacity-0 animate-fade-in" style={{ animationDelay: '0.9s' }}>
             {/* Email */}
             <a
               href="mailto:furkanbirol@icloud.com"
@@ -192,7 +192,7 @@ export default function Home() {
               <svg className="w-5 h-5 group-hover:scale-110 transition" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
               </svg>
-              <span>Email</span>
+              <span>{t.email}</span>
             </a>
 
             {/* LinkedIn */}
@@ -221,13 +221,11 @@ export default function Home() {
               <span className="text-sm">{t.github}</span>
             </a>
           </div>
-
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 ml-106">
-
+      <main className="flex-1 ml-96">
         {/* Header */}
         <header className="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center">
           <nav className="flex space-x-6">
@@ -257,13 +255,13 @@ export default function Home() {
 
         {/* Chat Area */}
         <div className="max-w-4xl mx-auto p-8 mt-10">
-          <div className="text-center mb-6">
+          <div className="text-center mb-6 opacity-0 animate-fade-in" style={{ animationDelay: '0.1s' }}>
             <h1 className="text-3xl font-bold text-gray-800">{t.askTitle}</h1>
             <p className="text-gray-600 mt-2 text-base">{t.askSubtitle}</p>
           </div>
 
           {/* Quick Questions */}
-          <div className="mt-6 text-sm text-gray-500">
+          <div className="mt-6 text-sm text-gray-500 opacity-0 animate-fade-in" style={{ animationDelay: '0.2s' }}>
             <strong>{t.quickQuestions}</strong>
             <div className="flex flex-wrap gap-2 mt-2">
               {[
@@ -275,7 +273,7 @@ export default function Home() {
                   key={q.tr}
                   onClick={() => {
                     setQuestion(q[language]);
-                    ask(); // Otomatik gönder
+                    ask();
                   }}
                   className="text-blue-500 hover:underline text-sm bg-blue-50 px-2 py-1 rounded"
                 >
@@ -285,20 +283,45 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm mt-6">
             {/* AI Response */}
             <div className="mb-4 p-4 bg-gray-50 rounded-lg min-h-40 text-gray-700 text-base leading-relaxed">
-              {answer || t.noAnswer}
+              {answer ? (
+                <>
+                  {answer}
+                  <div className="text-xs text-gray-400 mt-2 flex items-center space-x-1">
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>{t.source}</span>
+                  </div>
+                </>
+              ) : (
+                t.noAnswer
+              )}
             </div>
+
+            {/* Loading Indicator */}
+            {loading && (
+              <div className="flex items-center space-x-2 text-gray-500 text-sm mb-4">
+                <div className="flex space-x-1">
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                </div>
+                <span>{t.thinking}</span>
+              </div>
+            )}
 
             {/* Input Area */}
             <div className="flex gap-3">
               <input
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && ask()}
+                onKeyPress={(e) => e.key === 'Enter' && !loading && ask()}
                 placeholder={language === 'tr' ? 'Furkan\'a ne sormak istersin?' : 'What would you like to ask Furkan?'}
                 className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-xl"
+                disabled={loading}
               />
               <button
                 onClick={ask}
@@ -310,7 +333,27 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Footer */}
+        <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-3 text-center text-gray-500 text-sm shadow-t-lg z-10">
+          <div className="flex items-center justify-center space-x-2">
+            <span>Powered by</span>
+            <img src="/gemini-logo.svg" alt="Gemini" className="h-5" />
+            <span>• Built with Next.js & Vercel</span>
+          </div>
+        </footer>
       </main>
+
+      {/* Animasyon Stili */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.6s ease-out forwards;
+        }
+      `}</style>
     </div>
   );
 }
